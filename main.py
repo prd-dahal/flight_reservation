@@ -28,6 +28,9 @@ def customerDetails():
 		customerFile.write(data)
 		customerFile.write(',')
 	customerFile.write('\n')
+	
+	return id
+
 def flightOrder():
 	book=[]
 	bookFile=open('bookedFile.csv','a')
@@ -41,9 +44,9 @@ def flightOrder():
 			date=i[4]
 			time=i[5]		
 	
-	cID=input("Enter the customer Id (If not registered type no) ")
-	if(cID=='no'):
-		customerDetails()
+	cID=input("Enter the customer Id (If not registered type 'No') ")
+	if(cID.lower()=='no'):
+		cID=customerDetails()
 	for i in csv.reader(open('customers.csv')):
 		if(i[2]==cID):
 			Name=i[0]

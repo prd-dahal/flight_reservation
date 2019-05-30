@@ -34,14 +34,26 @@ def flightOrder():
 	for i in csv.reader(open('flightInfo.csv')):
 		print(i[0]+'\t'+i[1])
 	flightId=input('Enter the flight ID to be booked::')
-	cId=input("Enter the customer Id (If not registered type no) ")
-	if(cId=='no'):
-		customerDetails()
-	for i in csv.reader(open('customerDetails.csv')):
-		if(i[2]==cId):
-			cName=i[0]
-			cAddress=i[1]
+	for i in csv.reader(open('flightInfo.csv')):
+		if(i[0]==flightId):
+			frm=i[1]
+			to=i[2]
+			date=i[4]
+			time=i[5]		
 	
+	cID=input("Enter the customer Id (If not registered type no) ")
+	if(cID=='no'):
+		customerDetails()
+	for i in csv.reader(open('customers.csv')):
+		if(i[2]==cID):
+			Name=i[0]
+			Address=i[1]
+	book=[flightId,cID,Name,Address,frm,to,date,time]
+	print(book)
+	for data in book:
+		bookFile.write(data)
+		bookFile.write(',')
+	bookFile.write('\n')
 
 flightOrder()
 #customerDetails()

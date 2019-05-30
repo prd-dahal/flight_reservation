@@ -5,7 +5,7 @@ def idVal(id):
 		return False
 	else:
 		return True
-
+#input the customer details q no 1
 def customerDetails():
 	customerFile=open('customers.csv','a')
 	cDetails=[]
@@ -28,14 +28,25 @@ def customerDetails():
 		customerFile.write(data)
 		customerFile.write(',')
 	customerFile.write('\n')
+def flightOrder():
+	book=[]
+	bookFile=open('bookedFile.csv','a')
+	for i in csv.reader(open('flightInfo.csv')):
+		print(i[0]+'\t'+i[1])
+	flightId=input('Enter the flight ID to be booked::')
+	cId=input("Enter the customer Id (If not registered type no) ")
+	if(cId=='no'):
+		customerDetails()
+	for i in csv.reader(open('customerDetails.csv')):
+		if(i[2]==cId):
+			cName=i[0]
+			cAddress=i[1]
+	
 
-
-
-csv_file= open('flightInfo.csv','r') 
-csv_reader=csv.reader(csv_file)
-for i in csv_reader:
- 	if (i[0]=='kathmandu'):
- 		i[2]='hello world'
- 		print("hello")
-for i in csv_reader:
-	print(i)
+flightOrder()
+#customerDetails()
+#test reading files 
+# csv_file= open('customers.csv','r') 
+# csv_reader=csv.reader(csv_file)
+# for i in csv_reader:
+# 	print(i)

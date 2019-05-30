@@ -28,6 +28,7 @@ def customerDetails():
 		customerFile.write(data)
 		customerFile.write(',')
 	customerFile.write('\n')
+#gets the fileOrder and save it in the book file 
 def flightOrder():
 	book=[]
 	bookFile=open('bookedFile.csv','a')
@@ -50,13 +51,24 @@ def flightOrder():
 			Address=i[1]
 	book=[flightId,cID,Name,Address,frm,to,date,time]
 	print(book)
+	#writing in a file in csv file so that i can be traced in a list per line use csv.reader function to retrive data
 	for data in book:
 		bookFile.write(data)
 		bookFile.write(',')
 	bookFile.write('\n')
-
-flightOrder()
+#give summary infromation 
+def summaryinfo():
+	print('********************************************************************')
+	print("Summary Info of flight from to the destination")
+	print('....................................................................')
+	for i in csv.reader(open('flightInfo.csv')):
+		print(i[1]+' to '+i[2])
+	print('********************************************************************')
+summaryinfo()
+#flightOrder()
 #customerDetails()
+
+
 #test reading files 
 # csv_file= open('customers.csv','r') 
 # csv_reader=csv.reader(csv_file)

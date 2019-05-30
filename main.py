@@ -8,7 +8,7 @@ def idVal(id):
 
 def customerDetails():
 	customerFile=open('customers.csv','a')
-	cDetails={}
+	cDetails=[]
 	cName=input("Enter customers name::")
 	cAddress=input("Enter customers Address::")
 	i=1
@@ -23,12 +23,19 @@ def customerDetails():
 			break
 		i=i+1
 	eatOnlyHalal=input("Do you eat halal meat only(Yes/No)::").lower()
-	cDetails={'Name':cName,'Address':cAddress,'id':id,'eatOnlyHalal':eatOnlyHalal}
-	with open('customers.csv','w') as file:
-		for key in cDetails.keys():
-			file.write('%s,%s\n'%(key,cDetails[key]))
+	cDetails=[cName,cAddress,id,eatOnlyHalal]
+	for data in cDetails:
+		customerFile.write(data)
+		customerFile.write(',')
+	customerFile.write('\n')
 
 
 
-		
-customerDetails()
+csv_file= open('flightInfo.csv','r') 
+csv_reader=csv.reader(csv_file)
+for i in csv_reader:
+ 	if (i[0]=='kathmandu'):
+ 		i[2]='hello world'
+ 		print("hello")
+for i in csv_reader:
+	print(i)

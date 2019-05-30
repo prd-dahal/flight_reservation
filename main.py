@@ -61,6 +61,7 @@ def flightOrder():
 	bookFile.write('\n')
 
 def summary_info():
+	flag = 0
 	cID = input("Enter customer ID: ")
 	customer_info = csv.reader(open('customers.csv'))
 	customer_flight_info = csv.reader(open('bookedFile.csv'))
@@ -74,6 +75,11 @@ def summary_info():
 				if cID in flight_info:
 					print(f"Flight ID: {flight_info[0]} \nDate: {flight_info[6]} \nBooked Time: {flight_info[7]}")
 					break
+		else:
+			flag = flag + 1
+	
+	if flag !=0:
+		print(f"Sorry! there is no deatils on Customer ID : {cID}")
 
 				
 summary_info()				

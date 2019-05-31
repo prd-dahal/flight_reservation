@@ -1,5 +1,6 @@
 import sys
 import csv
+import time as t
 def idVal(id):
 	if((id[0]==0) or (int(id)<100) or (int(id)>999)):
 		return False
@@ -28,6 +29,8 @@ def customerDetails():
 		customerFile.write(data)
 		customerFile.write(',')
 	customerFile.write('\n')
+	customerFile.close()
+	return id
 #gets the fileOrder and save it in the book file 
 def flightOrder():
 	book=[]
@@ -40,16 +43,17 @@ def flightOrder():
 			frm=i[1]
 			to=i[2]
 			date=i[4]
-			time=i[5]		
+			times=i[5]		
 	
 	cID=input("Enter the customer Id (If not registered type no) ")
 	if(cID=='no'):
-		customerDetails()
+		cID=customerDetails()
+	
 	for i in csv.reader(open('customers.csv')):
 		if(i[2]==cID):
 			Name=i[0]
 			Address=i[1]
-	book=[flightId,cID,Name,Address,frm,to,date,time]
+	book=[flightId,cID,Name,Address,frm,to,date,times]
 	print(book)
 	#writing in a file in csv file so that i can be traced in a list per line use csv.reader function to retrive data
 	for data in book:
@@ -64,8 +68,8 @@ def summaryinfo():
 	for i in csv.reader(open('flightInfo.csv')):
 		print(i[1]+' to '+i[2])
 	print('********************************************************************')
-summaryinfo()
-#flightOrder()
+#summaryinfo()
+flightOrder()
 #customerDetails()
 
 

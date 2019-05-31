@@ -1,11 +1,16 @@
 import sys
 import csv
+
 import time as t
+
+
+
 def idVal(id):
 	if((id[0]==0) or (int(id)<100) or (int(id)>999)):
 		return False
 	else:
 		return True
+
 #input the customer details q no 1
 def customerDetails():
 	customerFile=open('customers.csv','a')
@@ -29,9 +34,15 @@ def customerDetails():
 		customerFile.write(data)
 		customerFile.write(',')
 	customerFile.write('\n')
+
 	customerFile.close()
 	return id
 #gets the fileOrder and save it in the book file 
+
+	
+	return id
+
+
 def flightOrder():
 	book=[]
 	bookFile=open('bookedFile.csv','a')
@@ -45,10 +56,16 @@ def flightOrder():
 			date=i[4]
 			times=i[5]		
 	
+
 	cID=input("Enter the customer Id (If not registered type no) ")
 	if(cID=='no'):
 		cID=customerDetails()
 	
+
+	cID=input("Enter the customer Id (If not registered type 'No') ")
+	if(cID.lower()=='no'):
+		cID=customerDetails()
+
 	for i in csv.reader(open('customers.csv')):
 		if(i[2]==cID):
 			Name=i[0]
@@ -60,6 +77,7 @@ def flightOrder():
 		bookFile.write(data)
 		bookFile.write(',')
 	bookFile.write('\n')
+
 #give summary infromation 
 def summaryinfo():
 	print('********************************************************************')
@@ -70,6 +88,33 @@ def summaryinfo():
 	print('********************************************************************')
 #summaryinfo()
 flightOrder()
+
+
+def summary_info():
+	flag = 0
+	cID = input("Enter customer ID: ")
+	customer_info = csv.reader(open('customers.csv'))
+	customer_flight_info = csv.reader(open('bookedFile.csv'))
+	print(f"Information of Customer ID : {cID}")
+	for data in customer_info:
+		if data[2] == cID:
+			print(f"Name: {data[0]} \nAddress: {data[1]} \nCustomer ID: {data[2]}")
+			print(f"Customer eat halal meat: {data[3]}")				
+			
+			for flight_info in customer_flight_info:
+				if cID in flight_info:
+					print(f"Flight ID: {flight_info[0]} \nDate: {flight_info[6]} \nBooked Time: {flight_info[7]}")
+					break
+		else:
+			flag = flag + 1
+	
+	if flag !=0:
+		print(f"Sorry! there is no deatils on Customer ID : {cID}")
+
+				
+summary_info()				
+#flightOrder()
+
 #customerDetails()
 
 

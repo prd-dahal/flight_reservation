@@ -1,35 +1,36 @@
 import sys
 import csv
-
-import time as t
-
+from datetime import datetime
 
 
 def idVal(id):
-	if((id[0]==0) or (int(id)<100) or (int(id)>999)):
+	if((id[0] == 0) or (int(id) < 100) or (int(id) > 999)):
 		return False
 	else:
 		return True
 
-#input the customer details q no 1
+# input the customer details q no 1
+
+
 def customerDetails():
-	customerFile=open('customers.csv','a')
-	cDetails=[]
-	cName=input("Enter customers name::")
-	cAddress=input("Enter customers Address::")
-	i=1
+	customerFile = open('customers.csv', 'a')
+	cDetails = []
+	cName = input("Enter customers name::")
+	cAddress = input("Enter customers Address::")
+	i = 1
 	while(1):
-		if(i==1):
-			id=input("Enter the customer ID::")
+		if(i == 1):
+			id = input("Enter the customer ID::")
 		else:
-			id=input("Your ID is invalid. Please Try Again.(Type 'abort' to exit)::")
-		if(id.lower()=='abort'):
+			id = input(
+				"Your ID is invalid. Please Try Again.(Type 'abort' to exit)::")
+		if(id.lower() == 'abort'):
 			sys.exit()
-		elif(idVal(id)==True):
+		elif(idVal(id) == True):
 			break
-		i=i+1
-	eatOnlyHalal=input("Do you eat halal meat only(Yes/No)::").lower()
-	cDetails=[cName,cAddress,id,eatOnlyHalal]
+		i = i+1
+	eatOnlyHalal = input("Do you eat halal meat only(Yes/No)::").lower()
+	cDetails = [cName, cAddress, id, eatOnlyHalal]
 	for data in cDetails:
 		customerFile.write(data)
 		customerFile.write(',')
@@ -37,48 +38,45 @@ def customerDetails():
 
 	customerFile.close()
 	return id
-#gets the fileOrder and save it in the book file 
-
-	
-	return id
+# gets the fileOrder and save it in the book file
 
 
 def flightOrder():
-	book=[]
-	bookFile=open('bookedFile.csv','a')
+	book = []
+	bookFile = open('bookedFile.csv', 'a')
 	for i in csv.reader(open('flightInfo.csv')):
 		print(i[0]+'\t'+i[1])
-	flightId=input('Enter the flight ID to be booked::')
+	flightId = input('Enter the flight ID to be booked::')
 	for i in csv.reader(open('flightInfo.csv')):
-		if(i[0]==flightId):
-			frm=i[1]
-			to=i[2]
-			date=i[4]
-			times=i[5]		
-	
+		if(i[0] == flightId):
+			frm = i[1]
+			to = i[2]
+			date = i[4]
+			times = i[5]
 
-	cID=input("Enter the customer Id (If not registered type no) ")
-	if(cID=='no'):
-		cID=customerDetails()
-	
+	cID = input("Enter the customer Id (If not registered type no) ")
+	if(cID == 'no'):
+		cID = customerDetails()
 
-	cID=input("Enter the customer Id (If not registered type 'No') ")
-	if(cID.lower()=='no'):
-		cID=customerDetails()
+	cID = input("Enter the customer Id (If not registered type 'No') ")
+	if(cID.lower() == 'no'):
+		cID = customerDetails()
 
 	for i in csv.reader(open('customers.csv')):
-		if(i[2]==cID):
-			Name=i[0]
-			Address=i[1]
-	book=[flightId,cID,Name,Address,frm,to,date,times]
+		if(i[2] == cID):
+			Name = i[0]
+			Address = i[1]
+	book = [flightId, cID, Name, Address, frm, to, date, times]
 	print(book)
-	#writing in a file in csv file so that i can be traced in a list per line use csv.reader function to retrive data
+	# writing in a file in csv file so that i can be traced in a list per line use csv.reader function to retrive data
 	for data in book:
 		bookFile.write(data)
 		bookFile.write(',')
 	bookFile.write('\n')
 
-#give summary infromation 
+# give summary infromation
+
+
 def summaryinfo():
 	print('********************************************************************')
 	print("Summary Info of flight from to the destination")
@@ -86,8 +84,8 @@ def summaryinfo():
 	for i in csv.reader(open('flightInfo.csv')):
 		print(i[1]+' to '+i[2])
 	print('********************************************************************')
-#summaryinfo()
-flightOrder()
+# summaryinfo()
+# flightOrder()
 
 
 def summary_info():
@@ -98,28 +96,53 @@ def summary_info():
 	print(f"Information of Customer ID : {cID}")
 	for data in customer_info:
 		if data[2] == cID:
-			print(f"Name: {data[0]} \nAddress: {data[1]} \nCustomer ID: {data[2]}")
-			print(f"Customer eat halal meat: {data[3]}")				
-			
+			print(
+				f"Name: {data[0]} \nAddress: {data[1]} \nCustomer ID: {data[2]}")
+			print(f"Customer eat halal meat: {data[3]}")
+
 			for flight_info in customer_flight_info:
 				if cID in flight_info:
-					print(f"Flight ID: {flight_info[0]} \nDate: {flight_info[6]} \nBooked Time: {flight_info[7]}")
+					print(
+						f"Flight ID: {flight_info[0]} \nDate: {flight_info[6]} \nBooked Time: {flight_info[7]}")
 					break
 		else:
 			flag = flag + 1
-	
-	if flag !=0:
+
+	if flag != 0:
 		print(f"Sorry! there is no deatils on Customer ID : {cID}")
 
-				
-summary_info()				
-#flightOrder()
+# summary_info()
+# flightOrder()
 
-#customerDetails()
+def cancel_booking():
+	flight_info = csv.reader(open('flightInfo.csv'))
+	booked_info = csv.reader(open('bookedFile.csv'))
+	cID = input('Enter the customer ID: ')
 
+	for flight_booked in booked_info:
+		if cID in flight_booked:
+			date = flight_booked[6]
+			time = flight_booked[7]
+			current_time = datetime.now().strftime('%H:%M')
+			current_date = datetime.now().strftime("%Y/%m/%d")
+			if date >= current_date:
+				if int(time[0:2]) - int(current_time[0:2]) >= 2:
+				# remove the line matching the cID in file 'bookedFile.csv' 
+				# and increment the number of flight seat in file 'flightInfo.csv'
+				# remove the key word pass after you add the logic to overwrite the csv file.
+					pass
 
-#test reading files 
-# csv_file= open('customers.csv','r') 
+				elif int(time[0:2]) - int(current_time[0:2]) == 1:
+					if time[3:] == current_time[3:]:
+						# remove the line matching the cID in file 'bookedFile.csv' 
+						# and increment the number of flight seat in file 'flightInfo.csv'
+						# remove the key word pass after you add the logic to overwrite the csv file.
+						pass
+			else:
+				print("Sorry, you can't cancel the flight now. Its too late for cancellation")
+cancel_booking()
+	# test reading files
+# csv_file= open('customers.csv','r')
 # csv_reader=csv.reader(csv_file)
 # for i in csv_reader:
 # 	print(i)

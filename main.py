@@ -202,10 +202,17 @@ def cancel_booking():
 
 	# test reading files
 # csv_file= open('customers.csv','r')
-
+def create_file():
+	directory=input("Enter the valid directory full directory with file name")
+	
+	try:
+		x=open(directory,'a')
+		print("File Created")
+	except:
+		print("Invalid Directory")
 flag=1        
 while(flag==1):
-        choice=int(input("\n1.Add Customer Details\n2.Order a flight\n3.Summary Info\n4.Create New Flight\n5.Customer Details\n6.Exit\nEnter your choice::"))
+        choice=int(input("\n1.Add Customer Details\n2.Order a flight\n3.Summary Info\n4.Create New Flight\n5.Customer Details\n6.Create a file\n7.Exit\nEnter your choice::"))
         if(choice==1):
                 customerDetails()
         elif(choice==2):
@@ -216,6 +223,10 @@ while(flag==1):
                 createNewFlight()
         elif(choice==5):
                 customer_details()
+        elif(choice==6):
+        	create_file()
+        elif(choice==7):
+        	sys.exit()
         else:
                 print("INVALID INPUT")
 #summaryinfo()				

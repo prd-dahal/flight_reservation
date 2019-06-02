@@ -156,12 +156,11 @@ def customer_details():
 	cID = input("Enter customer ID: ")
 	customer_info = csv.reader(open('customers.csv'))
 	customer_flight_info = csv.reader(open('bookedFile.csv'))
-	print(f"Information of Customer ID : {cID}")
+	print(f"\nInformation of Customer ID : {cID}")
 	for data in customer_info:
 		if data[2] == cID:
-
-			print(
-				f"Name: {data[0]} \nAddress: {data[1]} \nCustomer ID: {data[2]}")
+			flag=100
+			print(f"Name: {data[0]} \nAddress: {data[1]} \nCustomer ID: {data[2]}")
 			print(f"Customer eat halal meat: {data[3]}")
 
 			for flight_info in customer_flight_info:
@@ -169,11 +168,9 @@ def customer_details():
 					print(
 						f"Flight ID: {flight_info[0]} \nDate: {flight_info[6]} \nBooked Time: {flight_info[7]}")
 					break
-		else:
-			flag = flag + 1
 
-	if flag != 0:
-		print(f"Sorry! there is no deatils on Customer ID : {cID}")
+	if flag == 0:
+		print(f"Sorry! there is no deatils on Customer ID : {cID}\n")
 
 # summary_info()
 # flightOrder()
@@ -208,7 +205,7 @@ def cancel_booking():
 
 flag=1        
 while(flag==1):
-        choice=int(input("1.Add Customer Details\n2.Order a flight\n3.Summary Info\n4.Create New Flight\n5.Exit\nEnter your choice::"))
+        choice=int(input("\n1.Add Customer Details\n2.Order a flight\n3.Summary Info\n4.Create New Flight\n5.Customer Details\n6.Exit\nEnter your choice::"))
         if(choice==1):
                 customerDetails()
         elif(choice==2):
@@ -218,7 +215,7 @@ while(flag==1):
         elif(choice==4):
                 createNewFlight()
         elif(choice==5):
-                sys.exit()
+                customer_details()
         else:
                 print("INVALID INPUT")
 #summaryinfo()				

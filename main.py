@@ -32,7 +32,7 @@ def customerDetails():
 	eatOnlyHalal = input("Do you eat halal meat only(Yes/No)::").lower()
 	cDetails = [cName, cAddress, id, eatOnlyHalal]
 	print("Your data was recorded")
-	print("**************************************************")
+	print("*"*20)
 	for data in cDetails:
 		customerFile.write(data)
 		customerFile.write(',')
@@ -40,13 +40,7 @@ def customerDetails():
 	customerFile.close()
 	return id
 
-# gets the fileOrder and save it in the book file
-
-
-
-	
 #gets the fileOrder and save it in the book file 
-
 def flightOrder():
 	book = []
 	bookFile = open('bookedFile.csv', 'a')
@@ -71,15 +65,13 @@ def flightOrder():
 	book = [flightId, cID, Name, Address, frm, to, date, times]
 	# writing in a file in csv file so that i can be traced in a list per line use csv.reader function to retrive data
 	print("Your order was placed")
-	#writing in a file in csv file so that i can be traced in a list per line use csv.reader function to retrive data
 	for data in book:
 		bookFile.write(data)
 		bookFile.write(',')
 	bookFile.write('\n')
-# give summary infromation
-	print("*******************************************************************************")
-#give summary infromation 
+	print("*"*20)
 
+# give summary infromation
 def summaryinfo():
 	print('********************************************************************')
 	print("Summary Info of flight from to the destination")
@@ -127,7 +119,7 @@ def fIDVal(x):
 def createNewFlight():
 	flightInfo=[]
 	flightFile=open('flightInfo.csv','a')
-	i=0;
+	i=0
 	while(True):
 		if(i==0):
 			fID=input("Enter the flight Id (It must be of 3 letter following with a character) ")
@@ -172,8 +164,6 @@ def customer_details():
 	if flag == 0:
 		print(f"Sorry! there is no deatils on Customer ID : {cID}\n")
 
-# summary_info()
-# flightOrder()
 def cancel_booking():
 	flight_info = csv.reader(open('flightInfo.csv'))
 	booked_info = csv.reader(open('bookedFile.csv'))
@@ -201,7 +191,6 @@ def cancel_booking():
 				print("Sorry, you can't cancel the flight now. Its too late for cancellation")
 
 	# test reading files
-# csv_file= open('customers.csv','r')
 def create_file():
 	directory=input("Enter the valid directory full directory with file name")
 	
@@ -237,7 +226,7 @@ while(flag==1):
 
 #customerDetails()
 
-
+#test 
 #test reading files 
 # csv_file= open('customers.csv','r') 
 # csv_reader=csv.reader(csv_file)
